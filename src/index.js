@@ -50,10 +50,16 @@ let heatmapService = {
   getHeatMap(dashboardId, heatMapName) {
     return SpinalGraphService.getChildren(dashboardId, [RELATION_NAME]).then(
       heatMaps => {
-        for (let index = 0; index < heatMaps.length; index++) {
-          const heatMap = heatMaps[index];
-          if (heatMap.name.get() === heatMapName) return heatMap;
+        if (heatMapName) {
+          for (let index = 0; index < heatMaps.length; index++) {
+            const heatMap = heatMaps[index];
+            if (heatMap.name.get().toLowerCase() === heatMapName.toLowerCase())
+              return heatMap;
+          }
+        } else {
+          return heatMaps;
         }
+
         return;
       }
     );

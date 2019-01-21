@@ -1,8 +1,8 @@
 {
   "name": "spinal-env-viewer-heatmap-service",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
-  "main": "src/index.js",
+  "main": "build/index.js",
   "scripts": {
     "build": "babel src -d  build -s inline",
     "test": "echo \"Error: no test specified\" && exit 1"
