@@ -1,5 +1,5 @@
 import {
-  SPINAL_RELATION_TYPE,
+  SPINAL_RELATION_LST_PTR_TYPE,
   SpinalGraphService
 } from "spinal-env-viewer-graph-service";
 import HeatMap from "./heatMapModel";
@@ -32,7 +32,7 @@ let heatmapService = {
           nodeId,
           heatMapNode,
           RELATION_NAME,
-          SPINAL_RELATION_TYPE
+          SPINAL_RELATION_LST_PTR_TYPE
         );
       } else {
         heatMapFound.element.load().then(el => {
