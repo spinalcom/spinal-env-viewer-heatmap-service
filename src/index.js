@@ -7,26 +7,39 @@ import HeatMap from "./heatMapModel";
 const RELATION_NAME = "hasHeatMap";
 
 let heatmapService = {
-  createHeatMap(nodeId, heatMapName, heatMapMinName, heatMapMinValue,
-    heatMapMinColor, heatMapMaxName, heatMapMaxValue, heatMapMaxColor,
-    heatMapAverageName = null, heatMapAverageValue = null,
-    heatMapAverageColor = null) {
-
+  createHeatMap(
+    nodeId,
+    heatMapName,
+    heatMapMinName,
+    heatMapMinValue,
+    heatMapMinColor,
+    heatMapMaxName,
+    heatMapMaxValue,
+    heatMapMaxColor,
+    heatMapAverageName = null,
+    heatMapAverageValue = null,
+    heatMapAverageColor = null
+  ) {
     this.getHeatMap(nodeId, heatMapName).then(heatMapFound => {
-      console.log("heatMapFound before condition", heatMapFound);
-
       if (typeof heatMapFound === "undefined") {
-        console.log("heatMapFound inside if condition", heatMapFound);
-
-        let heatMap = new HeatMap(heatMapName, heatMapMinName,
+        let heatMap = new HeatMap(
+          heatMapName,
+          heatMapMinName,
           heatMapMinValue,
-          heatMapMinColor, heatMapMaxName, heatMapMaxValue,
+          heatMapMinColor,
+          heatMapMaxName,
+          heatMapMaxValue,
           heatMapMaxColor,
-          heatMapAverageName, heatMapAverageValue, heatMapAverageColor);
+          heatMapAverageName,
+          heatMapAverageValue,
+          heatMapAverageColor
+        );
 
         let heatMapNode = SpinalGraphService.createNode({
-          name: heatMapName
-        }, heatMap);
+            name: heatMapName
+          },
+          heatMap
+        );
 
         SpinalGraphService.addChild(
           nodeId,
@@ -36,16 +49,17 @@ let heatmapService = {
         );
       } else {
         heatMapFound.element.load().then(el => {
-          this.updateHeatMap(el, heatMapMinValue,
+          this.updateHeatMap(
+            el,
+            heatMapMinValue,
             heatMapMinColor,
-            heatMapMaxValue, heatMapMaxColor, heatMapAverageColor);
-        })
-
+            heatMapMaxValue,
+            heatMapMaxColor,
+            heatMapAverageColor
+          );
+        });
       }
-    })
-
-
-
+    });
   },
   getHeatMap(dashboardId, heatMapName) {
     return SpinalGraphService.getChildren(dashboardId, [RELATION_NAME]).then(
@@ -82,7 +96,7 @@ let heatmapService = {
       "";
 
     heatMap.average && maxValue && minValue ?
-      heatMap.average.value.set((maxValue + minValue) / 2) :
+      heatMap.average.value.set((Number(maxValue) + Number(minValue)) / 2) :
       "";
 
     heatMap.average && averageColor ?
